@@ -1,3 +1,5 @@
+/*  This program will calculate the total score of series games, by entering -1 data entering would be finished. */
+
 #include <iostream>
 using namespace std;
 
