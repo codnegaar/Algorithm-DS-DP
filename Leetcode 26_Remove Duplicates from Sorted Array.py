@@ -37,4 +37,17 @@ Constraints:
         nums is sorted in non-decreasing order.
 '''
 
-
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        # Using two pointers and using empty
+        lpt = 1
+        for rpt in range (1, len(nums)):
+            if nums[rpt] != nums[rpt - 1]:
+                nums[lpt] = nums[rpt]
+                lpt  +=1
+        return lpt
+                                        
+                             
+                             
+                             
+ 
