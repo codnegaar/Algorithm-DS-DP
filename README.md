@@ -1,1 +1,1 @@
-# Leetcode Data Structure practice
+# Leetcode (Data Structure practice)
