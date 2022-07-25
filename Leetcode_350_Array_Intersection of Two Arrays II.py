@@ -30,4 +30,18 @@ class Solution:
                 result.append(num)
                 cnt[num]  -=1
         return result
-                
+  '''
+  class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        if len(nums1)> len(nums2):
+            return self.intersect(nums2, nums1)
+        
+        intersection =[]
+        counted = Counter(nums1)
+        for num in nums2:
+            if counted[num]> 0:
+                intersection.append(num)
+                counted[num] -=1
+        return intersection
+        
+   '''
