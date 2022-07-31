@@ -41,7 +41,12 @@ class Solution:
         return True
             
             
+
  # Third solution
+
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        return sorted(s) == sorted(t)
 
         
         
