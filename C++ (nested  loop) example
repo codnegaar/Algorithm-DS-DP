@@ -3,7 +3,7 @@ using namespace std;
 
 int main() {
     int numOfStd  = 5;
-    int numOfTest = 4;
+    int numOfTest = 4;    
     
     // Determine average for every single student
     for(int std = 1 ; std <= numOfStd; std++){
