@@ -13,5 +13,20 @@ Constraints:
         1 <= strs.length <= 200
         0 <= strs[i].length <= 200
         strs[i] consists of only lowercase English letters.
+        
 '''
+
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        
+        res =""
+        
+        for i in range(len(strs[0])):
+            for s in strs:
+                if i == len(s) or s[i] !=strs[0][i]:
+                    return res
+                
+            res += strs[0][i]
+        return res
+        
 
