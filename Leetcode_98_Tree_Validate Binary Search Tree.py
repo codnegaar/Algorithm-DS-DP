@@ -32,6 +32,7 @@ class TreeNode:
         
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
+   
         
         if not root:
             return True
