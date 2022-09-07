@@ -34,4 +34,5 @@ class Solution:
             if haystack[i:i + needleLength] == needle:
                 return i
         return -1      
+       
         
