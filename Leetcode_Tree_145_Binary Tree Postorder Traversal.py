@@ -34,10 +34,7 @@ class Solution:
             dfs(root.right, res)
             res.append(root.val)
             return res
-        return dfs(root, [])
-
-        
-        
+        return dfs(root, [])      
 
 
 
