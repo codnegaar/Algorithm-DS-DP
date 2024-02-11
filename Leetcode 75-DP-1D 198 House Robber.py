@@ -1,7 +1,7 @@
 '''
-House Robber
+Leetcode 75-DP-1D 198 House Robber
 
-Solution
+ 
 You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed,
 the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and
 it will automatically contact the police if two adjacent houses were broken into on the same night. Given an integer
@@ -34,4 +34,23 @@ class Solution:
             indx1=indx2
             indx2=temp
         return indx2
-                
+
+# Second Solution
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n == 0:
+            return 0
+        elif n == 1:
+            return nums[0]
+        elif n == 2:
+            return max(nums[0], nums[1])
+
+        dp = [0] * n
+        dp[0] = nums[0]
+        dp[1] = max(nums[0], nums[1])
+
+        for i in range(2, n):
+            dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+
+        return dp[n-1]
