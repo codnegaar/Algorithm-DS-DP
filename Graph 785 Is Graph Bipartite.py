@@ -1,6 +1,6 @@
 '''
 
-Leetcode Graph 785 Is Graph Bipartite
+Graph 785 Is Graph Bipartite
 
 Note: A bipartite graph is a graph where the vertices can be divided into two disjoint sets such that all edges connect a vertex in one set to a vertex in another set.
 There are no edges between vertices in the disjoint sets.
@@ -63,3 +63,50 @@ class Solution:
     return all(colors[i] != Color.kWhite or isValidColor(i, Color.kRed)
                for i in range(len(graph)))
         
+# Second solution
+from enum import Enum
+from typing import List
+
+class Color(Enum):
+    WHITE = 0  # Unvisited nodes are marked as WHITE.
+    RED = 1    # RED indicates one of the partitions of the bipartite graph.
+    GREEN = 2  # GREEN indicates the other partition of the bipartite graph.
+
+class Solution:
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        """
+        Determines if the given graph is bipartite.
+        
+        Parameters:
+        graph (List[List[int]]): The graph represented as an adjacency list where
+                                 graph[i] is a list of nodes adjacent to node i.
+        
+        Returns:
+        bool: True if the graph is bipartite, False otherwise.
+        """
+        n = len(graph)
+        colors = [Color.WHITE] * n
+
+        # Loop through each node in case the graph is disconnected.
+        for i in range(n):
+            if colors[i] == Color.WHITE:
+                # Start coloring from the current node using iterative DFS.
+                stack = [(i, Color.RED)]
+                while stack:
+                    node, color = stack.pop()
+
+                    if colors[node] == Color.WHITE:
+                        # Color the current node.
+                        colors[node] = color
+
+                        # Add all adjacent nodes to the stack with the alternate color.
+                        next_color = Color.GREEN if color == Color.RED else Color.RED
+                        for neighbor in graph[node]:
+                            stack.append((neighbor, next_color))
+                    elif colors[node] != color:
+                        # If the current node has already been colored with a different color,
+                        # then the graph is not bipartite.
+                        return False
+
+        return True
+
