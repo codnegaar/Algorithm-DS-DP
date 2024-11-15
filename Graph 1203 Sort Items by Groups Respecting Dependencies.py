@@ -96,6 +96,78 @@ class Solution:
 
 
 
+# Second solution
+
+from typing import List, Dict
+from collections import defaultdict
+
+class Solution:
+    def sortItems(self, n: int, m: int, group: List[int], beforeItems: List[List[int]]) -> List[int]:
+        """
+        Sorts items given their group affiliations and dependency constraints.
+        
+        Parameters:
+        n (int): Total number of items.
+        m (int): Total number of groups.
+        group (List[int]): List of group affiliations for each item, where -1 indicates no group.
+        beforeItems (List[List[int]]): List of dependencies for each item.
+        
+        Returns:
+        List[int]: Ordered list of items if possible, otherwise an empty list if sorting is not feasible.
+        """
+        
+        # Step 1: Initialize data structures
+        # Map items to their groups; ungrouped items are given unique virtual group identifiers
+        group_map = defaultdict(list)
+        for i in range(n):
+            group_id = str(i) + '*' if group[i] == -1 else group[i]
+            group_map[group_id].append(i)
+
+        # Build graphs for group and item dependencies
+        group_graph = defaultdict(set)  # Group dependencies
+        item_graph = defaultdict(list)  # Item dependencies
+        
+        # Step 2: Populate dependency graphs
+        for i in range(n):
+            for b in beforeItems[i]:
+                item_graph[i].append(b)
+                if group[i] != group[b]:  # If items belong to different groups
+                    src = str(i) + '*' if group[i] == -1 else group[i]
+                    dest = str(b) + '*' if group[b] == -1 else group[b]
+                    group_graph[src].add(dest)
+        
+        # Helper function for topological sort using DFS
+        def dfs(node, result, visited, graph):
+            if node in visited:  # Cycle detected
+                return visited[node]
+            visited[node] = True
+            for neighbor in graph[node]:
+                if dfs(neighbor, result, visited, graph):
+                    return True
+            visited[node] = False  # Mark node as fully processed
+            result.append(node)
+            return False
+
+        # Step 3: Topologically sort the groups
+        group_order = []
+        visited_groups = {}
+        for group_id in group_map:
+            if dfs(group_id, group_order, visited_groups, group_graph):
+                return []  # Cycle detected in group dependencies
+
+        # Step 4: Topologically sort items within each group and accumulate final result
+        result = []
+        visited_items = {}
+        for g in group_order:
+            for item in group_map[g]:
+                if dfs(item, result, visited_items, item_graph):
+                    return []  # Cycle detected in item dependencies
+        
+        return result
+
+
+
+
 
 
 
