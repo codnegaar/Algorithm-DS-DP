@@ -78,3 +78,58 @@ class MinStack:
             
     def getMin(self) -> int:
         return self.minValue
+
+# Second solution
+class MinStack:
+
+    def __init__(self):
+        """
+        Initialize the MinStack.
+        The stack will hold tuples of (value, current_min).
+        """
+        self.stack = []
+
+    def push(self, val: int) -> None:
+        """
+        Push a new value onto the stack, along with the current minimum.
+        
+        Parameters:
+        - val (int): The value to be pushed onto the stack.
+        """
+        # If the stack is empty, the new minimum is the pushed value itself.
+        if not self.stack:
+            self.stack.append((val, val))
+        else:
+            # Otherwise, push the value and the new minimum.
+            current_min = min(val, self.stack[-1][1])
+            self.stack.append((val, current_min))
+
+    def pop(self) -> None:
+        """
+        Pop the top value from the stack.
+        """
+        if self.stack:
+            self.stack.pop()
+
+    def top(self) -> int:
+        """
+        Get the top value of the stack.
+        
+        Returns:
+        - The value at the top of the stack.
+        """
+        if self.stack:
+            return self.stack[-1][0]
+        return None
+
+    def getMin(self) -> int:
+        """
+        Retrieve the minimum value in the stack.
+        
+        Returns:
+        - The minimum value in the stack.
+        """
+        if self.stack:
+            return self.stack[-1][1]
+        return None
+
