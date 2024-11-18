@@ -15,3 +15,29 @@ Example 3:
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
          return len(nums) != len(set(nums))
+
+# second solution
+class Solution:
+    def containsDuplicate(self, nums: list[int]) -> bool:
+        """
+        Given an integer list `nums`, this function checks if there are any duplicate values in the list.
+        
+        Parameters:
+        - nums (list[int]): A list of integers.
+        
+        Returns:
+        - bool: True if any value appears at least twice in the array, False otherwise.
+        """
+        # Use a set to track the unique numbers encountered in the list
+        seen = set()
+
+        # Iterate through each number in the list
+        for num in nums:
+            # If the number is already in the set, it means a duplicate is found
+            if num in seen:
+                return True
+            # Otherwise, add the number to the set
+            seen.add(num)
+        
+        # No duplicates found after checking all numbers
+        return False
