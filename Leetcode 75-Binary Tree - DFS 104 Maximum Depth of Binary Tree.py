@@ -44,3 +44,72 @@ class Solution:
             return max(dfs(root.left, depth + 1), dfs(root.right, depth + 1))                       
         return dfs(root, 0)
         
+# Second Solution
+from typing import Optional
+from collections import deque
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        """
+        Calculate the maximum depth of a binary tree.
+
+        Parameters:
+        root (TreeNode): The root node of the binary tree.
+
+        Returns:
+        int: The maximum depth of the binary tree.
+        """
+        if not root:
+            return 0  # If the tree is empty, return 0 as the depth
+
+        # Use a queue to facilitate level-order traversal
+        q = deque([root])
+        depth = 0
+
+        # Iterate while there are nodes in the queue
+        while q:
+            depth += 1  # Increment depth with each level
+
+            # Iterate through all nodes at the current level
+            for _ in range(len(q)):
+                node = q.popleft()  # Remove node from the front of the queue
+                if node.left:
+                    q.append(node.left)  # Add left child to the queue if it exists
+                if node.right:
+                    q.append(node.right)  # Add right child to the queue if it exists
+
+        return depth
+
+# Unit Test for the Solution
+import unittest
+
+class TestMaxDepth(unittest.TestCase):
+    def setUp(self):
+        # Create a binary tree for testing:
+        #        3
+        #       / \
+        #      9  20
+        #         /  \
+        #        15   7
+        self.root = TreeNode(3)
+        self.root.left = TreeNode(9)
+        self.root.right = TreeNode(20)
+        self.root.right.left = TreeNode(15)
+        self.root.right.right = TreeNode(7)
+
+    def test_max_depth(self):
+        solution = Solution()
+        self.assertEqual(solution.maxDepth(self.root), 3)  # Expected depth is 3
+
+    def test_empty_tree(self):
+        solution = Solution()
+        self.assertEqual(solution.maxDepth(None), 0)  # Expected depth for empty tree is 0
+
+if __name__ == "__main__":
+    unittest.main(argv=[''], exit=False)
