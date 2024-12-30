@@ -44,3 +44,61 @@ class Solution:
         ans = (ans + dp[i]) % kMod
 
     return ans
+
+
+# Second Solution
+from functools import lru_cache
+
+class Solution:
+    def countGoodStrings(self, low: int, high: int, zero: int, one: int) -> int:
+        """
+        Count the number of good strings of lengths between low and high inclusive,
+        where a good string can be constructed using blocks of `zero` zeros or `one` ones.
+        
+        Args:
+        low (int): The minimum length of a good string.
+        high (int): The maximum length of a good string.
+        zero (int): The block size of zeros allowed in the string.
+        one (int): The block size of ones allowed in the string.
+
+        Returns:
+        int: The total count of good strings modulo 1,000,000,007.
+        """
+        MOD = 1_000_000_007  # Modulus for large numbers
+
+        @lru_cache(None)  # Cache results of recursive calls
+        def count(length: int) -> int:
+            # Base case: A valid string of length 0 exists (empty string)
+            if length == 0:
+                return 1
+            # Invalid case: Negative length means no valid strings
+            if length < 0:
+                return 0
+            # Recursive case: Add ways to form string by reducing zero or one block
+            return (count(length - zero) + count(length - one)) % MOD
+
+        # Accumulate results for lengths in the range [low, high]
+        result = 0
+        for length in range(low, high + 1):
+            result = (result + count(length)) % MOD
+        return result
+
+
+# Unit Test
+def test_countGoodStrings():
+    sol = Solution()
+    # Test cases
+    assert sol.countGoodStrings(3, 3, 1, 1) == 4, "Test Case 1 Failed"
+    assert sol.countGoodStrings(2, 3, 1, 2) == 5, "Test Case 2 Failed"
+    assert sol.countGoodStrings(5, 10, 2, 3) == 37, "Test Case 3 Failed"
+    print("All test cases passed!")
+
+
+# Example usage
+if __name__ == "__main__":
+    test_countGoodStrings()  # Run unit tests
+
+    # Example outputs
+    solution = Solution()
+    print(solution.countGoodStrings(3, 3, 1, 1))  # Output: 4
+    print(solution.countGoodStrings(5, 10, 2, 3))  # Output: 37
