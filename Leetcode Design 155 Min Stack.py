@@ -133,3 +133,68 @@ class MinStack:
             return self.stack[-1][1]
         return None
 
+# Second Solution
+class MinStack:
+    """
+    MinStack data structure to store elements with O(1) retrieval of the minimum value.
+    """
+    def __init__(self):
+        """
+        Initialize two stacks:
+        - `stk`: Stores all elements in the stack.
+        - `min_stk`: Stores the current minimum values at each stack level.
+        """
+        self.stk = []       # Stack to store all elements
+        self.min_stk = []   # Stack to store the minimum values
+
+    def push(self, val: int) -> None:
+        """
+        Push a new value onto the stack.
+
+        Parameters:
+        val (int): The value to push onto the stack.
+        """
+        self.stk.append(val)
+        if not self.min_stk or val <= self.min_stk[-1]:
+            self.min_stk.append(val)
+        else:
+            self.min_stk.append(self.min_stk[-1])  # Duplicate the current minimum
+
+    def pop(self) -> None:
+        """
+        Remove the top element from the stack.
+        """
+        if self.stk:
+            self.stk.pop()
+            self.min_stk.pop()
+
+    def top(self) -> int:
+        """
+        Get the top element of the stack.
+
+        Returns:
+        int: The top element of the stack.
+        """
+        return self.stk[-1] if self.stk else None
+
+    def getMin(self) -> int:
+        """
+        Retrieve the minimum element in the stack.
+
+        Returns:
+        int: The minimum element in the stack.
+        """
+        return self.min_stk[-1] if self.min_stk else None
+
+
+# Example Usage
+if __name__ == "__main__":
+    min_stack = MinStack()
+    min_stack.push(-2)
+    min_stack.push(0)
+    min_stack.push(-3)
+    print(f"Minimum value: {min_stack.getMin()}")  # Expected: -3
+    min_stack.pop()
+    print(f"Top value: {min_stack.top()}")         # Expected: 0
+    print(f"Minimum value: {min_stack.getMin()}")  # Expected: -2
+
