@@ -5,10 +5,10 @@ int main() {
     int numOfStd  = 5;
     int numOfTest = 4;    
     
-    // Determine average for every single student
+    // Determine the average for every single student
     for(int std = 1 ; std <= numOfStd; std++){
         
-        int total = 0;  // initial the acumulator
+        int total = 0;  // initial the accumulator
         for(int test = 1; test <= numOfTest; test++){
             
             double score;
@@ -27,10 +27,10 @@ int main() {
 
 
 /*
-Enter score of test 1for student 1 : 2                                                                                                         
-Enter score of test 2for student 1 : 36                                                                                                        
-Enter score of test 3for student 1 : 69                                                                                                        
-Enter score of test 4for student 1 : 98 
+Enter the score of test 1 for student 1: 2                                                                                                         
+Enter the score of test 2 for student 1: 36                                                                                                        
+Enter the score of test 3 for student 1: 69                                                                                                        
+Enter the score of test 4 for student 1: 98 
 
 The average score for student 1 is: 51 scores.
 
