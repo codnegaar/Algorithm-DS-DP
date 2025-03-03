@@ -40,4 +40,36 @@ class Solution:
         root.left = self.buildTree(preorder[1 : mid + 1], inorder[:mid])
         root.right = self.buildTree(preorder[mid + 1 :], inorder[mid + 1 :])
         return root
-        
+
+
+# Second solution
+from typing import List, Optional
+
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        """
+        Constructs a binary tree from preorder and inorder traversal lists.
+        """
+
+        if not preorder or not inorder:
+            return None  # Edge case: Empty input
+
+        inorder_map = {val: idx for idx, val in enumerate(inorder)}  # O(n) lookup table
+        preorder_iter = iter(preorder)  # Iterator for preorder traversal
+
+        def build_subtree(left: int, right: int) -> Optional[TreeNode]:
+            if left > right:
+                return None  # No valid subtree
+
+            root_val = next(preorder_iter)  # Get root from preorder
+            root = TreeNode(root_val)  # Create node
+
+            mid = inorder_map[root_val]  # Get inorder index
+
+            root.left = build_subtree(left, mid - 1)  # Build left subtree
+            root.right = build_subtree(mid + 1, right)  # Build right subtree
+
+            return root
+
+        return build_subtree(0, len(inorder) - 1)
+
