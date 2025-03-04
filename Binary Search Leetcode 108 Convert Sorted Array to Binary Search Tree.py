@@ -110,3 +110,4 @@ if __name__ == "__main__":
     nums5 = [1, 2]
     bst5 = solution.sortedArrayToBST(nums5)
     print(tree_to_list(bst5))  # Expected: [2, 1]
+ 
