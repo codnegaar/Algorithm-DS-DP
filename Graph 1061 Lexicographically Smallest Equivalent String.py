@@ -36,7 +36,6 @@ Constraints:
         s1, s2, and baseStr consist of lowercase English letters.
 '''
 
-
 class DisjointSets:
     """
     Disjoint Sets for union-find operations with path compression.
