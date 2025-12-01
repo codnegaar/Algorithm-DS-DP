@@ -43,6 +43,25 @@ class Solution:
       summ -= batteries.pop()
       n -= 1
 
+
+# SOlution 2
+          class Solution:
+    def maxRunTime(self, n: int, batteries: List[int]) -> int:
+        """
+        Return the maximum number of minutes n computers can run simultaneously
+        using the given battery capacities. Batteries can be swapped freely.
+        """
+        total = sum(batteries)
+        batteries.sort()
+
+        # Remove overly large batteries that exceed the feasible average share.
+        while batteries[-1] > total // n:
+            total -= batteries.pop()
+            n -= 1
+
+        return total // n
+
+
     # If the max battery <= average running time,
     # It won't be waste, and so do smaller batteries
     return summ // n
